@@ -1,13 +1,37 @@
-import React from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import ScoreDisplay from "./components/score";
+import { GameResult } from "./constants";
+import { ScoreContext } from "./context";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-    </div>
-  );
+    const [score, setScore] = useState({ wins: 0, losses: 0, draws: 0 });
+
+    const updateScore = (result: GameResult) => {
+        setScore((prevScore) => ({
+            wins:
+                result === GameResult.Win ? prevScore.wins + 1 : prevScore.wins,
+            losses:
+                result === GameResult.Loss
+                    ? prevScore.losses + 1
+                    : prevScore.losses,
+            draws:
+                result === GameResult.Draw
+                    ? prevScore.draws + 1
+                    : prevScore.draws,
+        }));
+    };
+    return (
+        <ScoreContext.Provider value={{ score, updateScore }}>
+            <div className="app">
+                <header className="app-header"></header>
+                <div className="main-area">Left Component</div>
+                <div className="score-area">
+                    <ScoreDisplay />
+                </div>
+            </div>
+        </ScoreContext.Provider>
+    );
 }
 
 export default App;
