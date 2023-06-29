@@ -1,7 +1,7 @@
 import { createContext } from 'react';
-import { ScoreContextType } from './types';
+import { ContextType } from './types';
 
-export const ScoreContext = createContext<ScoreContextType>({
+export const Context = createContext<ContextType>({
     score: { wins: 0, losses: 0, draws: 0 },
     updateScore: () => {},
 });

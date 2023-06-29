@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
+import GameComponent from "./components/game";
 import ScoreDisplay from "./components/score";
 import { GameResult } from "./constants";
-import { ScoreContext } from "./context";
+import { Context } from "./context";
 
 function App() {
     const [score, setScore] = useState({ wins: 0, losses: 0, draws: 0 });
@@ -22,15 +23,15 @@ function App() {
         }));
     };
     return (
-        <ScoreContext.Provider value={{ score, updateScore }}>
+        <Context.Provider value={{ score, updateScore }}>
             <div className="app">
                 <header className="app-header"></header>
-                <div className="main-area">Left Component</div>
+                <div className="main-area"><GameComponent/></div>
                 <div className="score-area">
                     <ScoreDisplay />
                 </div>
             </div>
-        </ScoreContext.Provider>
+        </Context.Provider>
     );
 }
 
