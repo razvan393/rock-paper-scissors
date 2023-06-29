@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import GameComponent from "./components/game";
 import ScoreDisplay from "./components/score";
@@ -6,7 +6,21 @@ import { GameResult } from "./constants";
 import { Context } from "./context";
 
 function App() {
-    const [score, setScore] = useState({ wins: 0, losses: 0, draws: 0 });
+    const [score, setScore] = useState<{
+        wins: number;
+        losses: number;
+        draws: number;
+    }>(() => {
+        const storedScore = localStorage.getItem("score");
+        if (storedScore) {
+            return JSON.parse(storedScore);
+        }
+        return { wins: 0, losses: 0, draws: 0 };
+    });
+
+    useEffect(() => {
+        localStorage.setItem("score", JSON.stringify(score));
+    }, [score]);
 
     const updateScore = (result: GameResult) => {
         setScore((prevScore) => ({
@@ -26,7 +40,9 @@ function App() {
         <Context.Provider value={{ score, updateScore }}>
             <div className="app">
                 <header className="app-header"></header>
-                <div className="main-area"><GameComponent/></div>
+                <div className="main-area">
+                    <GameComponent />
+                </div>
                 <div className="score-area">
                     <ScoreDisplay />
                 </div>
