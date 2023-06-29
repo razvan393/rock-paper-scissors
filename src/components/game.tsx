@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GameResult } from "../constants";
 import { Context } from "../context";
 
@@ -6,16 +6,33 @@ const GameComponent = () => {
     const [playerChoice, setPlayerChoice] = useState("");
     const [computerChoice, setComputerChoice] = useState("");
     const [result, setResult] = useState("");
+    const [isGameStarted, setIsGameStarted] = useState(false);
 
     const { updateScore } = useContext(Context);
 
+    useEffect(() => {
+        let timer: NodeJS.Timeout;
+
+        if (isGameStarted) {
+            timer = setTimeout(() => {
+                const computerChoice = generateComputerChoice();
+                const gameResult = determineGameResult(
+                    playerChoice,
+                    computerChoice
+                );
+                setComputerChoice(computerChoice);
+                setResult(gameResult);
+                updateScore(gameResult);
+                setIsGameStarted(false);
+            }, 3000);
+        }
+
+        return () => clearTimeout(timer);
+    }, [isGameStarted, playerChoice, updateScore]);
+
     const handlePlayerChoice = (choice: string) => {
-        const computerChoice = generateComputerChoice();
-        const gameResult = determineGameResult(choice, computerChoice);
         setPlayerChoice(choice);
-        setComputerChoice(computerChoice);
-        setResult(gameResult);
-        updateScore(gameResult);
+        setIsGameStarted(true);
     };
 
     const generateComputerChoice = () => {
@@ -45,15 +62,23 @@ const GameComponent = () => {
         <div className="game">
             <h2>Rock Paper Scissors</h2>
             <div className="choices">
-                <button onClick={() => handlePlayerChoice("rock")}>Rock</button>
-                <button onClick={() => handlePlayerChoice("paper")}>
+                <button
+                    disabled={isGameStarted}
+                    onClick={() => handlePlayerChoice("rock")}>
+                    Rock
+                </button>
+                <button
+                    disabled={isGameStarted}
+                    onClick={() => handlePlayerChoice("paper")}>
                     Paper
                 </button>
-                <button onClick={() => handlePlayerChoice("scissors")}>
+                <button
+                    disabled={isGameStarted}
+                    onClick={() => handlePlayerChoice("scissors")}>
                     Scissors
                 </button>
             </div>
-            {playerChoice && computerChoice && (
+            {!isGameStarted && playerChoice && computerChoice && (
                 <div className="result">
                     <p>Player's Choice: {playerChoice}</p>
                     <p>Computer's Choice: {computerChoice}</p>
