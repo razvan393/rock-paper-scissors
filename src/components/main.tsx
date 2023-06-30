@@ -9,6 +9,7 @@ import { ScoreType } from "../types";
 
 const Main = () => {
     const [score, setScore] = useState({ wins: 0, losses: 0, draws: 0 });
+    const [allScores, setAllScores] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const [userName, setUserName] = useState("");
 
@@ -20,6 +21,7 @@ const Main = () => {
             if (savedScores) {
                 const scores: { [key: string]: ScoreType } =
                     JSON.parse(savedScores);
+                setAllScores(scores);
                 setScore(
                     scores[savedUserName] || { wins: 0, losses: 0, draws: 0 }
                 );
@@ -48,27 +50,26 @@ const Main = () => {
 
         localStorage.setItem("scores", JSON.stringify(scores));
 
-        setScore(scores[userName] || 0);
+        setScore(scores[userName] || { wins: 0, losses: 0, draws: 0 });
+        setAllScores(scores);
     };
     return (
-        <Context.Provider value={{ score, updateScore, setIsLoading }}>
+        <Context.Provider
+            value={{ score, allScores, updateScore, setIsLoading }}>
             <div className="app">
-                <div className="login-page"></div>
-                <>
-                    <div className="loading-animation">
-                        <RingLoader
-                            size={100}
-                            color="#123abc"
-                            loading={isLoading}
-                        />
-                    </div>
-                    <div className="main-area">
-                        <GameComponent />
-                    </div>
-                    <div className="score-area">
-                        <ScoreDisplay />
-                    </div>
-                </>
+                <div className="loading-animation">
+                    <RingLoader
+                        size={100}
+                        color="#123abc"
+                        loading={isLoading}
+                    />
+                </div>
+                <div className="main-area">
+                    <GameComponent />
+                </div>
+                <div className="score-area">
+                    <ScoreDisplay />
+                </div>
             </div>
         </Context.Provider>
     );

@@ -77,7 +77,7 @@ const GameComponent = () => {
 
     return (
         <div className="game">
-            <h2>Rock Paper Scissors</h2>
+            <h3>Choose your weapon!</h3>
             <div className="choices">
                 <button
                     disabled={isGameStarted}

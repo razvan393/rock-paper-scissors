@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ScoreType } from "../types";
-import "../App.css"
+import "../App.css";
 
 const LoginPage = () => {
     const [name, setName] = useState("");
@@ -33,12 +33,20 @@ const LoginPage = () => {
 
     return (
         <div className="login-page">
-            <h2>Rock Paper Scissors</h2>
-            <h3>Enter Your Name</h3>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={name} onChange={handleNameChange} />
-                <button type="submit">Submit</button>
-            </form>
+            <div className="login-form">
+                <h1>Welcome to the Game</h1>
+                <form onSubmit={handleSubmit}>
+                    <label htmlFor="name">Enter your name:</label>
+                    <input
+                        type="text"
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Your Name"
+                    />
+                    <button type="submit">Start Playing</button>
+                </form>
+            </div>
         </div>
     );
 };

@@ -8,6 +8,7 @@ export interface ScoreType {
 
 export interface ContextType {
     score: ScoreType;
+    allScores: {[key: string]: ScoreType};
     setIsLoading: (isLoading: boolean) => void;
     updateScore: (result: GameResult) => void;
 }
