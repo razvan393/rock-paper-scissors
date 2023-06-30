@@ -34,9 +34,10 @@
 }
 
 .loading-animation {
-  position: absolute;
-  top: calc(50% - 100px);
-  left: calc(50% - 100px);
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  height: 100px;
 }
 
 .login-page {
@@ -116,21 +117,14 @@ button:active {
 }
 
 .game-button {
-  height: 40px;
-  background-color: #007bff;
+  padding: 0;
+  margin: 0 5px;
+  height: 175px;
+  width: 175px;
   color: #fff;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.game-button:hover {
-  background-color: #0056b3;
-}
-
-.game-button:active {
-  background-color: #003979;
+  background-color: #fff;
 }
 
 .choices {

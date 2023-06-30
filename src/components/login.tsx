@@ -39,7 +39,7 @@ const LoginPage = () => {
     return (
         <div className="login-page">
             <div className="login-form">
-                <h1>Welcome to the Game</h1>
+                <h1>Welcome</h1>
                 <form onSubmit={handleSubmit}>
                     <label htmlFor="name">Enter your name:</label>
                     <input

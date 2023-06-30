@@ -4,7 +4,6 @@ import GameComponent from "../components/game";
 import ScoreDisplay from "../components/score";
 import { GameResult } from "../constants";
 import { Context } from "../context";
-import { RingLoader } from "react-spinners";
 import { ScoreType } from "../types";
 
 const Main = () => {
@@ -57,13 +56,6 @@ const Main = () => {
         <Context.Provider
             value={{ score, allScores, isLoading, updateScore, setIsLoading }}>
             <div className="app">
-                <div className="loading-animation">
-                    <RingLoader
-                        size={100}
-                        color="#123abc"
-                        loading={isLoading}
-                    />
-                </div>
                 <div className="main-area">
                     <GameComponent />
                 </div>

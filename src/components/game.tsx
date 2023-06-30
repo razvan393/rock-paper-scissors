@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { GameResult } from "../constants";
 import { Context } from "../context";
 import Modal, { Styles } from "react-modal";
+import { BounceLoader } from "react-spinners";
 
 const customModalStyles: Styles = {
     content: {
@@ -79,21 +80,27 @@ const GameComponent = () => {
         <div className="game">
             <h3>Choose your weapon!</h3>
             <div className="choices">
-                <button className="game-button"
+                <button
+                    className="game-button"
                     disabled={isLoading}
                     onClick={() => handlePlayerChoice("rock")}>
-                    Rock
+                    <img src="icons/rock.png" />
                 </button>
-                <button className="game-button"
+                <button
+                    className="game-button"
                     disabled={isLoading}
                     onClick={() => handlePlayerChoice("paper")}>
-                    Paper
+                    <img src="icons/paper.png" />
                 </button>
-                <button className="game-button"
+                <button
+                    className="game-button"
                     disabled={isLoading}
                     onClick={() => handlePlayerChoice("scissors")}>
-                    Scissors
+                    <img src="icons/scissors.png" />
                 </button>
+            </div>
+            <div className="loading-animation">
+                <BounceLoader size={100} color="#123abc" loading={isLoading} />
             </div>
             <Modal
                 isOpen={isModalOpen}
