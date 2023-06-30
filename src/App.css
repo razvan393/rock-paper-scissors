@@ -23,3 +23,9 @@
   flex: 1;
   background-color: #d0d0d0;
 }
+
+.loading-animation {
+  position: absolute;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+}

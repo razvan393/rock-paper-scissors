@@ -1,14 +1,28 @@
 import { useContext, useEffect, useState } from "react";
 import { GameResult } from "../constants";
 import { Context } from "../context";
+import Modal, { Styles } from "react-modal";
+
+const customModalStyles: Styles = {
+    content: {
+        width: "300px",
+        height: "300px",
+        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+};
 
 const GameComponent = () => {
     const [playerChoice, setPlayerChoice] = useState("");
     const [computerChoice, setComputerChoice] = useState("");
     const [result, setResult] = useState("");
     const [isGameStarted, setIsGameStarted] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const { updateScore } = useContext(Context);
+    const { updateScore, setIsLoading } = useContext(Context);
 
     useEffect(() => {
         let timer: NodeJS.Timeout;
@@ -23,16 +37,19 @@ const GameComponent = () => {
                 setComputerChoice(computerChoice);
                 setResult(gameResult);
                 updateScore(gameResult);
+                setIsLoading(false);
+                setIsModalOpen(true);
                 setIsGameStarted(false);
             }, 3000);
         }
 
         return () => clearTimeout(timer);
-    }, [isGameStarted, playerChoice, updateScore]);
+    }, [isGameStarted, playerChoice, updateScore, setIsLoading]);
 
     const handlePlayerChoice = (choice: string) => {
         setPlayerChoice(choice);
         setIsGameStarted(true);
+        setIsLoading(true);
     };
 
     const generateComputerChoice = () => {
@@ -78,13 +95,18 @@ const GameComponent = () => {
                     Scissors
                 </button>
             </div>
-            {!isGameStarted && playerChoice && computerChoice && (
-                <div className="result">
-                    <p>Player's Choice: {playerChoice}</p>
-                    <p>Computer's Choice: {computerChoice}</p>
-                    <p>Result: {result}</p>
-                </div>
-            )}
+            <Modal
+                isOpen={isModalOpen}
+                appElement={document.getElementById("root") as HTMLElement}
+                onRequestClose={() => setIsModalOpen(false)}
+                style={customModalStyles}
+                contentLabel="Game Result">
+                <h3>Game Result</h3>
+                <p>Player's Choice: {playerChoice}</p>
+                <p>Computer's Choice: {computerChoice}</p>
+                <p>Result: {result}</p>
+                <button onClick={() => setIsModalOpen(false)}>Close</button>
+            </Modal>
         </div>
     );
 };
