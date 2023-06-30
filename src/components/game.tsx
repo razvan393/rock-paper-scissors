@@ -22,7 +22,7 @@ const GameComponent = () => {
     const [isGameStarted, setIsGameStarted] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const { updateScore, setIsLoading } = useContext(Context);
+    const { updateScore, setIsLoading, isLoading } = useContext(Context);
 
     useEffect(() => {
         let timer: NodeJS.Timeout;
@@ -79,18 +79,18 @@ const GameComponent = () => {
         <div className="game">
             <h3>Choose your weapon!</h3>
             <div className="choices">
-                <button
-                    disabled={isGameStarted}
+                <button className="game-button"
+                    disabled={isLoading}
                     onClick={() => handlePlayerChoice("rock")}>
                     Rock
                 </button>
-                <button
-                    disabled={isGameStarted}
+                <button className="game-button"
+                    disabled={isLoading}
                     onClick={() => handlePlayerChoice("paper")}>
                     Paper
                 </button>
-                <button
-                    disabled={isGameStarted}
+                <button className="game-button"
+                    disabled={isLoading}
                     onClick={() => handlePlayerChoice("scissors")}>
                     Scissors
                 </button>

@@ -8,10 +8,10 @@ const ScoreDisplay = () => {
     return (
         <>
             <div className="score">
-                <h2>Score</h2>
-                <p>Wins: {score.wins}</p>
-                <p>Losses: {score.losses}</p>
-                <p>Draws: {score.draws}</p>
+                <h3>Score</h3>
+                <span>Wins: {score.wins} </span>
+                <span>Losses: {score.losses} </span>
+                <span>Draws: {score.draws} </span>
             </div>
             <ScoreBoard />
         </>

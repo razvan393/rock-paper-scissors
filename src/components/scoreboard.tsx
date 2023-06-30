@@ -7,17 +7,17 @@ const ScoreBoard = () => {
     return (
         allScores && (
             <div className="leaderboard">
-                <h2>Leader Board</h2>
+                <h3>Leader Board</h3>
                 {Object.keys(allScores).map((user) => {
                     return (
-                        <div className="leaderboard-entry">
+                        <p className="leaderboard-entry" key={user}>
                             <span>{`${user}: `}</span>
                             <span>
                                 {allScores[user].wins} W{" "}
                                 {allScores[user].losses} L{" "}
                                 {allScores[user].draws} D
                             </span>
-                        </div>
+                        </p>
                     );
                 })}
             </div>

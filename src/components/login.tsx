@@ -6,6 +6,7 @@ import "../App.css";
 const LoginPage = () => {
     const [name, setName] = useState("");
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
@@ -17,18 +18,22 @@ const LoginPage = () => {
         if (localStorage.getItem("scores") === null) {
             localStorage.setItem("scores", JSON.stringify({}));
         }
-        const scores: { [key: string]: ScoreType } = JSON.parse(
-            localStorage.getItem("scores") || ""
-        );
+        if (name.trim() === "") {
+            setErrorMessage("Please enter your name.");
+        } else {
+            const scores: { [key: string]: ScoreType } = JSON.parse(
+                localStorage.getItem("scores") || ""
+            );
 
-        if (scores && scores[name] === undefined) {
-            scores[name] = { wins: 0, losses: 0, draws: 0 };
-            localStorage.setItem("scores", JSON.stringify(scores));
+            if (scores && scores[name] === undefined) {
+                scores[name] = { wins: 0, losses: 0, draws: 0 };
+                localStorage.setItem("scores", JSON.stringify(scores));
+            }
+
+            localStorage.setItem("currentUser", name);
+
+            navigate("/game");
         }
-
-        localStorage.setItem("currentUser", name);
-
-        navigate("/game");
     };
 
     return (
@@ -44,6 +49,7 @@ const LoginPage = () => {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your Name"
                     />
+                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                     <button type="submit">Start Playing</button>
                 </form>
             </div>

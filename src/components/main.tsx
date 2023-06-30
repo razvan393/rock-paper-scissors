@@ -55,7 +55,7 @@ const Main = () => {
     };
     return (
         <Context.Provider
-            value={{ score, allScores, updateScore, setIsLoading }}>
+            value={{ score, allScores, isLoading, updateScore, setIsLoading }}>
             <div className="app">
                 <div className="loading-animation">
                     <RingLoader
