@@ -1,6 +1,7 @@
 .app {
   text-align: center;
   display: flex;
+  height: 100%;
 }
 
 .app-header {
@@ -28,4 +29,8 @@
   position: absolute;
   top: calc(50% - 100px);
   left: calc(50% - 100px);
+}
+
+.login-page {
+  text-align: center;
 }

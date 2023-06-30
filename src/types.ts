@@ -1,7 +1,13 @@
 import { GameResult } from "./constants";
 
+export interface ScoreType {
+    wins: number;
+    losses: number;
+    draws: number;
+}
+
 export interface ContextType {
-    score: { wins: number; losses: number; draws: number };
+    score: ScoreType;
     setIsLoading: (isLoading: boolean) => void;
     updateScore: (result: GameResult) => void;
 }
